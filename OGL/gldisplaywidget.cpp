@@ -1,10 +1,66 @@
 #include "gldisplaywidget.h"
 
-
+int cpt = 0;
 GLDisplayWidget::GLDisplayWidget(QWidget *parent)
-    :QOpenGLWidget(parent), m_program(0)
+    :QOpenGLWidget(parent), m_program(0), m_camera(Camera(QVector3D(0.0f, 0.0f, -1.0f)))
 {
     this->setFixedSize(QSize(640, 480));
+
+    for(int i = 0; i<8; i++){
+        keys[i] = false;
+    }
+    this->m_fps_base = 25;
+    int second = 1000;
+    int timeInterval = second/this->m_fps_base;
+    this->m_timer = new QTimer(this);
+    connect(this->m_timer, SIGNAL(timeout()), this, SLOT(timeOutSlot()));
+    m_timer->start(timeInterval);
+
+
+}
+
+void GLDisplayWidget::keyPressEvent(QKeyEvent *event)
+{
+    std::cout << event->text().toStdString() << std::endl;
+    if(event->key()==Qt::Key_Z) this->keys[0] = true;
+    if(event->key()==Qt::Key_S) this->keys[1] = true;
+    if(event->key()==Qt::Key_Q) this->keys[2] = true;
+    if(event->key()==Qt::Key_D) this->keys[3] = true;
+
+    if(event->key()==Qt::Key_Up) this->keys[4] = true;
+    if(event->key()==Qt::Key_Down) this->keys[5] = true;
+    if(event->key()==Qt::Key_Left) this->keys[6] = true;
+    if(event->key()==Qt::Key_Right) this->keys[7] = true;
+
+    //std::cout << event->text().toStdString() << std::endl;
+}
+
+void GLDisplayWidget::keyReleaseEvent(QKeyEvent *event)
+{
+    if(event->key()==Qt::Key_Z) this->keys[0] = false;
+    if(event->key()==Qt::Key_S) this->keys[1] = false;
+    if(event->key()==Qt::Key_Q) this->keys[2] = false;
+    if(event->key()==Qt::Key_D) this->keys[3] = false;
+
+    if(event->key()==Qt::Key_Up) this->keys[4] = false;
+    if(event->key()==Qt::Key_Down) this->keys[5] = false;
+    if(event->key()==Qt::Key_Left) this->keys[6] = false;
+    if(event->key()==Qt::Key_Right) this->keys[7] = false;
+
+    //std::cout << "key released" << std::endl;
+}
+
+void GLDisplayWidget::applyMovement()
+{
+    if(this->keys[0]) m_camera.processMovement(CameraDirection::FORWARD);
+    if(this->keys[1]) m_camera.processMovement(CameraDirection::BACKWARD);
+    if(this->keys[2]) m_camera.processMovement(CameraDirection::LEFT);
+    if(this->keys[3]) m_camera.processMovement(CameraDirection::RIGHT);
+
+    if(this->keys[4]) m_camera.processOrientation(CameraOrientation::UP);
+    if(this->keys[5]) m_camera.processOrientation(CameraOrientation::DOWN);
+    if(this->keys[6]) m_camera.processOrientation(CameraOrientation::LEFT);
+    if(this->keys[7]) m_camera.processOrientation(CameraOrientation::RIGHT);
 }
 
 GLDisplayWidget::~GLDisplayWidget()
@@ -30,6 +86,13 @@ GLfloat dataZAxis[] = {
     //position        //colour
     0.0f, 0.0f, 0.0f, 0.1f, 0.1f, 0.1f, 1.0f,
     0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f
+};
+
+GLfloat dataTriangle[] = {
+    //position        //colour
+    0.0f, 0.5f, 0.0f,   1.0f, 0.0f, 0.0f, 1.0f,
+    -0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f,
+    0.5f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f, 1.0f
 };
 
 static const char *vertexShaderSourceCore =
@@ -61,6 +124,7 @@ static const char *fragmentShaderSourceCore =
 void GLDisplayWidget::initializeGL()
 {
     connect(context(), &QOpenGLContext::aboutToBeDestroyed, this, &GLDisplayWidget::cleanUp);
+
 
     initializeOpenGLFunctions();
     glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
@@ -116,7 +180,21 @@ void GLDisplayWidget::initializeGL()
     m_zAxisVbo.release();
     m_zAxisVao.release();
 
+    m_triangleVao.create();
+    m_triangleVao.bind();
+    m_triangleVbo.create();
+    m_triangleVbo.bind();
+    m_triangleVbo.allocate(dataTriangle, 21*sizeof(GLfloat));
+    f->glEnableVertexAttribArray(0);
+    f->glEnableVertexAttribArray(1);
+    f->glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 7*sizeof(GLfloat), 0);
+    f->glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 7*sizeof(GLfloat), reinterpret_cast<void *>(3 * sizeof(GLfloat)));
+    m_triangleVbo.release();
+    m_triangleVao.release();
+
     m_program->release();
+
+
 }
 
 
@@ -125,8 +203,12 @@ void GLDisplayWidget::paintGL()
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glEnable(GL_DEPTH_TEST);
 
-    m_viewMatrix.setToIdentity();
-    m_viewMatrix.translate(0.0f, 0.0f, -1.0f);
+    applyMovement();
+
+    //m_viewMatrix.setToIdentity();
+    //m_viewMatrix.translate(0.0f, 0.0f, -1.0f);
+
+    m_viewMatrix = m_camera.getViewMatrix();
     m_modelMatrix.setToIdentity();
 
 
@@ -148,8 +230,14 @@ void GLDisplayWidget::paintGL()
     glDrawArrays(GL_LINES, 0, 2);
     m_zAxisVao.release();
 
+    m_triangleVao.bind();
+    glDrawArrays(GL_TRIANGLES, 0, 3);
+    m_triangleVao.release();
+
     m_program->release();
 
+    //std::cout << "cpt :" << cpt << std::endl;
+    cpt++;
 
 }
 
@@ -169,6 +257,11 @@ void GLDisplayWidget::cleanUp()
     delete m_program;
     m_program = 0;
     doneCurrent();
+}
+
+void GLDisplayWidget::timeOutSlot()
+{
+    this->update();
 }
 
 
