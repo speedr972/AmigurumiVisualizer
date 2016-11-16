@@ -5,7 +5,7 @@ Camera::Camera(QVector3D position)
 {
     this->position = position;
     this->upWorld = QVector3D(0.0f, 1.0f, 0.0f);
-    this->yaw = 90.0f;
+    this->yaw = -90.0f;
     this->pitch = 0.0f;
     this->front = QVector3D(0.0f, 0.0f, 1.0f);
     this->movementSpeed = 0.5f;
