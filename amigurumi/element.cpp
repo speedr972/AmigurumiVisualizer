@@ -2,11 +2,13 @@
 
 Element::Element()
 {
+    elementName = "";
     position = QVector3D();
     rotX = 0.0f;
     rotY = 0.0f;
     rotZ = 0.0f;
     maxStitchesRound = 0;
+    model = new ModelElement(this);
 }
 
 Element::Element(QString s)
@@ -17,6 +19,12 @@ Element::Element(QString s)
     rotZ = 0.0f;
     elementName = s;
     maxStitchesRound = 0;
+    model = new ModelElement(this);
+}
+
+Element::~Element()
+{
+    delete(model);
 }
 
 void Element::display()

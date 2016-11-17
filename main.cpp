@@ -10,16 +10,18 @@ int main(int argc, char *argv[])
 {
 
 
-    QApplication a(argc, argv);
+
+    QApplication app(argc, argv);
+    /*
     //MainWindow w;
     //w.show();
     GLDisplayWidget widget;
     widget.show();
     return a.exec();
+    */
 
 
 
-    /*
     std::cout << std::endl << "-------------TEST STITCH-----------" << std::endl;
     Stitch s1(StitchType::CHAIN);
     Stitch s2(StitchType::DECREASE);
@@ -39,14 +41,14 @@ int main(int argc, char *argv[])
 
     std::cout << std::endl << "-------------TEST ROUND-----------" << std::endl;
     Round r1;
-    r1.addStitches(Stitch(StitchType::SINGLE_CROCHET), 3);
-    r1.addStitches(Stitch(StitchType::SINGLE_CROCHET), 2);
+    r1.addStitches(Stitch(StitchType::SINGLE_CROCHET), 1);
+    r1.addStitches(Stitch(StitchType::SINGLE_CROCHET), 1);
     r1.addStitches(Stitch(StitchType::INCREASE), 1);
-    r1.addStitches(Stitch(StitchType::SINGLE_CROCHET), 4);
+    r1.addStitches(Stitch(StitchType::SINGLE_CROCHET), 2);
 
     Round r2;
     r2.addStitches(Stitch(StitchType::DOUBLE_CROCHET), 3);
-    r2.addStitches(Stitch(StitchType::DECREASE), 2);
+    r2.addStitches(Stitch(StitchType::DECREASE), 3);
 
     Round r3;
     r3.addStitches(Stitch(StitchType::CHAIN), 3);
@@ -65,22 +67,25 @@ int main(int argc, char *argv[])
     Element e2("Hello2");
     e2.addRound(r3);
     e2.addRound(r2);
+    e2.display();
 
     Element e3("Hello3");
     e3.addRound(r1);
     e3.addRound(r1);
     e3.addRound(r1);
-
+    e3.display();
 
     std::cout << std::endl << "-------------TEST AMIGURUMI-----------" << std::endl;
-    Amigurumi a;
-    a.addElements(e1);
-    a.addElements(e2);
-    a.addElements(e3);
+    Amigurumi a = Amigurumi();
+    a.addElements(&e1);
+    a.display();
+    a.addElements(&e2);
+    a.display();
+    a.addElements(&e3);
     a.display();
 
     return 0;
-    */
+
 
 
 

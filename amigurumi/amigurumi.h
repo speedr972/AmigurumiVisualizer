@@ -4,21 +4,21 @@
 #include "amigurumi/element.h"
 #include <iostream>
 #include <vector>
+#include <string>
 
 class Amigurumi
 {
 public:
     Amigurumi();
+
+
     void display();
     QString toString();
 
-    void addElements(Element e);
+    void addElements(Element *e);
 
-    std::vector<Element> getElements() const;
-    void setElements(const std::vector<Element> &value);
 
-private:
-    std::vector<Element> elements;
+    std::vector<Element*> elements;
 
 };
 

@@ -19,7 +19,8 @@ SOURCES += main.cpp\
     amigurumi/element.cpp \
     amigurumi/amigurumi.cpp \
     OGL/gldisplaywidget.cpp \
-    OGL/camera.cpp
+    OGL/camera.cpp \
+    OGL/modelelement.cpp
 
 HEADERS  += mainwindow.h \
     amigurumi/stitch.h \
@@ -27,6 +28,7 @@ HEADERS  += mainwindow.h \
     amigurumi/element.h \
     amigurumi/amigurumi.h \
     OGL/gldisplaywidget.h \
-    OGL/camera.h
+    OGL/camera.h \
+    OGL/modelelement.h
 
 FORMS    += mainwindow.ui

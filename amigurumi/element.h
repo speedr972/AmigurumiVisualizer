@@ -5,12 +5,16 @@
 #include <iostream>
 #include "amigurumi/round.h"
 #include <QVector3D>
+#include "OGL/modelelement.h"
+
+class ModelElement;
 
 class Element
 {
 public:
     Element();
     Element(QString s);
+    ~Element();
 
     void display();
     QString toString();
@@ -46,6 +50,7 @@ private:
     float rotZ;
     QString elementName;
     int maxStitchesRound;
+    ModelElement *model;
 };
 
 #endif // ELEMENT_H
