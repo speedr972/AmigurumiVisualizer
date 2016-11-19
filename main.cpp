@@ -6,6 +6,8 @@
 #include "amigurumi/element.h"
 #include "amigurumi/amigurumi.h"
 #include "OGL/gldisplaywidget.h"
+#include <stdio.h>
+#include <stdlib.h>
 int main(int argc, char *argv[])
 {
 
@@ -84,6 +86,16 @@ int main(int argc, char *argv[])
     a.addElements(&e3);
     a.display();
 
+    e1.updateModel();
+    printf("%d vertices\n", e1.getModel()->getNbVertices());
+    for(int i = 0; i<e1.getModel()->getNbVertices(); i++){
+        printf("%f, %f, %f;\n", e1.getModel()->vertices[i*3], e1.getModel()->vertices[i*3+1], e1.getModel()->vertices[i*3+2]);
+    }
+
+    printf("\nNormals\n");
+    for(int i = 0; i<e1.getModel()->getNbVertices(); i++){
+        printf("%f, %f, %f;\n", e1.getModel()->normals[i*3], e1.getModel()->normals[i*3+1], e1.getModel()->normals[i*3+2]);
+    }
     return 0;
 
 

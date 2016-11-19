@@ -60,6 +60,11 @@ void Element::addRound(Round round)
 
 }
 
+void Element::updateModel()
+{
+    this->model->update();
+}
+
 
 
 
@@ -135,4 +140,14 @@ int Element::getMaxStitchesRound() const
 void Element::setMaxStitchesRound(int value)
 {
     maxStitchesRound = value;
+}
+
+ModelElement *Element::getModel() const
+{
+    return model;
+}
+
+void Element::setModel(ModelElement *value)
+{
+    model = value;
 }

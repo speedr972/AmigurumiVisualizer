@@ -20,6 +20,7 @@ public:
     QString toString();
 
     void addRound(Round round);
+    void updateModel();
 
     QString getElementName() const;
     void setElementName(const QString &value);
@@ -41,6 +42,9 @@ public:
 
     int getMaxStitchesRound() const;
     void setMaxStitchesRound(int value);
+
+    ModelElement *getModel() const;
+    void setModel(ModelElement *value);
 
 private:
     std::vector<Round> rounds;

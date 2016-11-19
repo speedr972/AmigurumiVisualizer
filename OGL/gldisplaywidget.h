@@ -14,6 +14,7 @@
 #include <iostream>
 #include <QKeyEvent>
 #include "camera.h"
+#include "amigurumi/amigurumi.h"
 #include <QTimer>
 
 QT_FORWARD_DECLARE_CLASS(QOpenGLShaderProgram)
@@ -67,6 +68,8 @@ private:
     QMatrix4x4 m_projectionMatrix;
     QMatrix4x4 m_viewMatrix;
     QMatrix4x4 m_modelMatrix;
+
+    Amigurumi *a;
 
 };
 

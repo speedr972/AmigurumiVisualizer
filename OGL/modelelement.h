@@ -20,7 +20,17 @@ public:
     void update();
 
 
-private:
+    int getSizeVertices() const;
+
+    int getSizeNormals() const;
+
+    int getSizeColors() const;
+
+    int getSizeIndices() const;
+
+    int getNbVertices() const;
+
+
     Element *e;
 
     QMatrix4x4 transformationMatrix;
@@ -28,6 +38,12 @@ private:
     float *normals;
     float *colors;
     int *indices;
+
+    int sizeVertices;
+    int sizeNormals;
+    int sizeColors;
+    int sizeIndices;
+    int nbVertices;
 };
 
 #endif // MODELELEMENT_H

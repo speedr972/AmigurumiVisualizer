@@ -20,6 +20,13 @@ ModelElement::ModelElement(Element *el)
     this->indices = nullptr;
     this->e = el;
 
+    this->sizeColors = 0;
+    this->sizeIndices = 0;
+    this->sizeNormals = 0;
+    this->sizeVertices = 0;
+    this->nbVertices = 0;
+
+
 }
 
 ModelElement::~ModelElement()
@@ -37,11 +44,18 @@ void ModelElement::update()
         int nbCols = e->getMaxStitchesRound();
         int nbRows = e->getRounds().size();
         int nbVertices = nbCols * (nbRows+2);
+        this->nbVertices = nbVertices;
+
 
         this->vertices = (float*)malloc(3*nbVertices*sizeof(float));
         this->normals = (float*)malloc(3*nbVertices*sizeof(float));
         this->colors = (float*)malloc(4*nbVertices*sizeof(float));
         this->indices = (int*)malloc(6*(nbCols-1)*(nbRows-1) * sizeof(int));
+        this->sizeColors = 3*nbVertices;
+        this->sizeIndices = 3*nbVertices;
+        this->sizeNormals = 4*nbVertices;
+        this->sizeVertices = 6*(nbCols-1)*(nbRows-1);
+
         std::vector<QVector3D> normalVertices;
         for(int o = 0; o<nbVertices; o++){
             normalVertices.push_back(QVector3D());
@@ -161,4 +175,29 @@ void ModelElement::update()
 
     }
 
+}
+
+int ModelElement::getSizeVertices() const
+{
+    return sizeVertices;
+}
+
+int ModelElement::getSizeNormals() const
+{
+    return sizeNormals;
+}
+
+int ModelElement::getSizeColors() const
+{
+    return sizeColors;
+}
+
+int ModelElement::getSizeIndices() const
+{
+    return sizeIndices;
+}
+
+int ModelElement::getNbVertices() const
+{
+    return nbVertices;
 }

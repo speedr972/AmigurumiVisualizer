@@ -15,6 +15,7 @@ GLDisplayWidget::GLDisplayWidget(QWidget *parent)
     this->m_timer = new QTimer(this);
     connect(this->m_timer, SIGNAL(timeout()), this, SLOT(timeOutSlot()));
     m_timer->start(timeInterval);
+    this->a = nullptr;
 
 
 }
