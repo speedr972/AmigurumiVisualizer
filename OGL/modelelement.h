@@ -7,6 +7,8 @@
 #include <QtMath>
 #include "amigurumi/round.h"
 #include "amigurumi/element.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 class Element;
 

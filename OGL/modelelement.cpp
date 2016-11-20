@@ -42,8 +42,8 @@ void ModelElement::update()
 {
     if(this->e!=nullptr){
         int nbCols = e->getMaxStitchesRound();
-        int nbRows = e->getRounds().size();
-        int nbVertices = nbCols * (nbRows+2);
+        int nbRows = e->getRounds().size()+2;
+        int nbVertices = nbCols * nbRows;
         this->nbVertices = nbVertices;
 
 
@@ -82,8 +82,10 @@ void ModelElement::update()
             vertexPointer++;
         }
 
+        printf("Fin up cap, debut cylindre, nbRounds = %d\n", e->getRounds().size());
+
         //cylinder
-        for(int i =0; i<nbRows; i++ ){
+        for(int i =0; i<e->getRounds().size(); i++ ){
             Round r = e->getRounds().at(i);
             int nbStiches = r.getNbStitches();
             radius = (float)nbStiches/(2.0f*(float)M_PI);
@@ -101,12 +103,13 @@ void ModelElement::update()
             }
         }
 
+         printf("Fin cylindre, debut bottom\n");
         //bottom cap
         radius = 0.01f;
         for(int j = 0; j<nbCols; j++){
             angle = (float)j/nbCols * (2.0f*(float)M_PI);
             this->vertices[vertexPointer*3] = radius * qCos(angle);
-            this->vertices[vertexPointer*3+1] = nbRows-1;
+            this->vertices[vertexPointer*3+1] = nbRows-3;
             this->vertices[vertexPointer*3+2] = radius * qSin(angle);
 
             this->colors[vertexPointer*3] = 0.0f;
@@ -116,6 +119,7 @@ void ModelElement::update()
             vertexPointer++;
         }
 
+         printf("Fin bottom, debut normals indices\n");
 
         QVector3D p1, p2, normalFace;
         //generate normals and indices
@@ -158,6 +162,8 @@ void ModelElement::update()
             }
         }
 
+         printf("Fin indices, debut normalsA\n");
+
         //create vertice normal array
         for(int i = 0; i<normalVertices.size(); i++){
             QVector3D n = normalVertices.at(i).normalized();
@@ -168,7 +174,7 @@ void ModelElement::update()
 
 
 
-
+        printf("fin update\n");
 
 
 
