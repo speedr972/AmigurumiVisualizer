@@ -16,6 +16,8 @@ public:
     QString toString();
 
     void addElements(Element *e);
+    void deleteElement(Element *e);
+    void clearElements();
 
 
     std::vector<Element*> elements;

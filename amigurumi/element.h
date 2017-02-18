@@ -46,12 +46,16 @@ public:
     ModelElement *getModel() const;
     void setModel(ModelElement *value);
 
+    float getScale() const;
+    void setScale(float value);
+
 private:
     std::vector<Round> rounds;
     QVector3D position;
     float rotX;
     float rotY;
     float rotZ;
+    float scale;
     QString elementName;
     int maxStitchesRound;
     ModelElement *model;

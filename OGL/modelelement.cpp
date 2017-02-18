@@ -19,6 +19,11 @@ ModelElement::ModelElement(Element *el)
     this->colors = nullptr;
     this->indices = nullptr;
     this->e = el;
+    this->position = e->getPosition();
+    this->rotX = e->getRotX();
+    this->rotY = e->getRotY();
+    this->rotZ = e->getRotZ();
+    this->scale = e->getScale();
 
     this->sizeColors = 0;
     this->sizeIndices = 0;
@@ -207,3 +212,5 @@ int ModelElement::getNbVertices() const
 {
     return nbVertices;
 }
+
+

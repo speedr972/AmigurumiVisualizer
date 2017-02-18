@@ -151,3 +151,14 @@ void Element::setModel(ModelElement *value)
 {
     model = value;
 }
+
+float Element::getScale() const
+{
+    return scale;
+}
+
+void Element::setScale(float value)
+{
+    scale = value;
+}
+

@@ -41,11 +41,18 @@ public:
     float *colors;
     int *indices;
 
+    QVector3D position;
+    float rotX;
+    float rotY;
+    float rotZ;
+    float scale;
+
     int sizeVertices;
     int sizeNormals;
     int sizeColors;
     int sizeIndices;
     int nbVertices;
+
 };
 
 #endif // MODELELEMENT_H
