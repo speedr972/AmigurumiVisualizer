@@ -41,7 +41,7 @@ protected:
     void applyMovement();
 
 private:
-    boolean keys[8];
+    bool keys[8];
 
     int m_fps_base;
 

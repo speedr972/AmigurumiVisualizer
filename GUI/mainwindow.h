@@ -9,6 +9,7 @@
 #include <QTextEdit>
 #include "amigurumi/amigurumi.h"
 #include "amigurumi/element.h"
+#include "OGL/gldisplaywidget.h"
 
 class MainWindow : public QMainWindow
 {
@@ -20,6 +21,18 @@ private:
     Amigurumi currentAmigurumi;
     int selectedElement;
 
+
+
+
+    //--------------------------------------------------------
+    //GUI elements
+    GLDisplayWidget* glWidget;
+    QPushButton* updateButton;
+    QTextEdit *editorTextEdit;
+    QPushButton *openFileButton;
+
+
+    //--------------------------------------------------------
 
 signals:
 

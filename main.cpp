@@ -1,4 +1,3 @@
-#include "mainwindow.h"
 #include <QApplication>
 #include <iostream>
 #include "amigurumi/stitch.h"
@@ -18,20 +17,19 @@ void testAddRemoveComponents();
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
+
     /*
-    //MainWindow w;
-    //w.show();
     GLDisplayWidget widget;
     widget.show();
-    return a.exec();
     */
+
 
     //testDefineComponentsPointers();
     MainWindow w;
     w.show();
     //testAddDeleteComponents();
 
-    return 0;
+    return app.exec();
 
 }
 

@@ -14,17 +14,17 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     QHBoxLayout *mainLayout = new QHBoxLayout;
     mainView->setLayout(mainLayout);
 
+
     ///////////////////////////////////////////////
     //left part
     QWidget *editorAreaWidget = new QWidget;
     QVBoxLayout *editorArea = new QVBoxLayout;
     editorAreaWidget->setLayout(editorArea);
-    QTextEdit *editorTextEdit = new QTextEdit;
-
+    this->editorTextEdit = new QTextEdit;
     QWidget *buttonsEditorAreaWidget = new QWidget;
     QHBoxLayout *buttonsEditorArea = new QHBoxLayout;
-    QPushButton *openFileButton = new QPushButton;
-    QPushButton *updateButton = new QPushButton;
+    this->openFileButton = new QPushButton; openFileButton->setText("Open File");
+    this->updateButton = new QPushButton; updateButton->setText("Update");
     buttonsEditorArea->addWidget(openFileButton);
     buttonsEditorArea->addWidget(updateButton);
     buttonsEditorAreaWidget->setLayout(buttonsEditorArea);
@@ -38,8 +38,11 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
 
 
     //middle part
+    this->glWidget = new GLDisplayWidget();
+    mainLayout->addWidget(this->glWidget);
 
     //right part
+
 
 }
 
