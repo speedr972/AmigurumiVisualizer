@@ -7,6 +7,7 @@
 #include <QHBoxLayout>
 #include <QPushButton>
 #include <QTextEdit>
+#include <QListView>
 #include "amigurumi/amigurumi.h"
 #include "amigurumi/element.h"
 #include "OGL/gldisplaywidget.h"
@@ -30,7 +31,16 @@ private:
     QPushButton* updateButton;
     QTextEdit *editorTextEdit;
     QPushButton *openFileButton;
+    QListView *outlier;
 
+        //transformation widgets
+    QTextEdit *xTranslationEdit;
+    QTextEdit *yTranslationEdit;
+    QTextEdit *zTranslationEdit;
+    QTextEdit *xRotationEdit;
+    QTextEdit *yRotationEdit;
+    QTextEdit *zRotationEdit;
+    QTextEdit *scaleEdit;
 
     //--------------------------------------------------------
 

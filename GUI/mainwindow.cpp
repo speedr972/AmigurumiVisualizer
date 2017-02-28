@@ -18,8 +18,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     ///////////////////////////////////////////////
     //left part
     QWidget *editorAreaWidget = new QWidget;
-    QVBoxLayout *editorArea = new QVBoxLayout;
-    editorAreaWidget->setLayout(editorArea);
+    QVBoxLayout *leftArea = new QVBoxLayout;
+    editorAreaWidget->setLayout(leftArea);
     this->editorTextEdit = new QTextEdit;
     QWidget *buttonsEditorAreaWidget = new QWidget;
     QHBoxLayout *buttonsEditorArea = new QHBoxLayout;
@@ -29,8 +29,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     buttonsEditorArea->addWidget(updateButton);
     buttonsEditorAreaWidget->setLayout(buttonsEditorArea);
 
-    editorArea->addWidget(editorTextEdit);
-    editorArea->addWidget(buttonsEditorAreaWidget);
+    leftArea->addWidget(editorTextEdit);
+    leftArea->addWidget(buttonsEditorAreaWidget);
 
 
     mainLayout->addWidget(editorAreaWidget);
@@ -42,6 +42,10 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent)
     mainLayout->addWidget(this->glWidget);
 
     //right part
+    QVBoxLayout *rightArea = new QVBoxLayout;
+    QListView *outlier = new QListView();
+
+
 
 
 }
