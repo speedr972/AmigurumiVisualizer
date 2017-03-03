@@ -22,7 +22,9 @@ SOURCES += main.cpp\
     OGL/gldisplaywidget.cpp \
     OGL/camera.cpp \
     OGL/modelelement.cpp \
-    GUI/mainwindow.cpp
+    GUI/mainwindow.cpp \
+    patternParser/patternparser.cpp \
+    tests/testsamigurumi.cpp
 
 HEADERS  += amigurumi/stitch.h \
     amigurumi/round.h \
@@ -31,6 +33,11 @@ HEADERS  += amigurumi/stitch.h \
     OGL/gldisplaywidget.h \
     OGL/camera.h \
     OGL/modelelement.h \
-    GUI/mainwindow.h
+    GUI/mainwindow.h \
+    patternParser/patternparser.h \
+    tests/testsamigurumi.h
 
 # FORMS    += mainwindow.ui
+
+DISTFILES += \
+    res/testPattern.txt
