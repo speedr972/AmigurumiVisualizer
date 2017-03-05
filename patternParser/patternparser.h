@@ -12,6 +12,12 @@ public:
     PatternParser();
 
     void parse(QString patternStr, Amigurumi *a);
+    void parseLine(QString patternLineStr, Amigurumi *a);
+
+    void resetParser();
+
+private:
+    int currentElement;
 };
 
 #endif // PATTERNPARSER_H

@@ -188,3 +188,8 @@ void testDefineComponentsPointers(){
         printf("%f, %f, %f;\n", e1->getModel()->normals[i*3], e1->getModel()->normals[i*3+1], e1->getModel()->normals[i*3+2]);
     }
 }
+
+void testParser1()
+{
+
+}
