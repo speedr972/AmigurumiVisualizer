@@ -14,7 +14,7 @@
 
 int main(int argc, char *argv[])
 {
-    QApplication app(argc, argv);
+    //QApplication app(argc, argv);
 
     /*
     GLDisplayWidget widget;
@@ -25,9 +25,13 @@ int main(int argc, char *argv[])
     //testDefineComponentsPointers();
     //MainWindow w;
     //w.show();
-    testAddDeleteComponents();
+    //testAddDeleteComponents();
 
-    return app.exec();
+
+    //return app.exec();
+
+    testParser1();
+    return 0;
 
 }
 

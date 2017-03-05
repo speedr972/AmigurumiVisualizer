@@ -41,3 +41,6 @@ HEADERS  += amigurumi/stitch.h \
 
 DISTFILES += \
     res/testPattern.txt
+
+RESOURCES += \
+    res/patterntestsres.qrc

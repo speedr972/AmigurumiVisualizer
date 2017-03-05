@@ -191,5 +191,18 @@ void testDefineComponentsPointers(){
 
 void testParser1()
 {
+    QFile textFile(":/testPattern.txt");
+    if(!textFile.open(QIODevice::ReadOnly | QIODevice::Text)){
+        std::cerr << "File not opened" << std::endl;
+    }
 
+    QByteArray total = textFile.readAll();
+    QString totalString(total);
+    //std::cout << totalString.toStdString() << std::endl;
+
+    PatternParser pp;
+    Amigurumi a;
+    pp.parse(totalString, &a);
+
+    a.display();
 }

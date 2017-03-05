@@ -9,6 +9,8 @@ void PatternParser::parse(QString patternStr, Amigurumi *a)
 {
 
     resetParser();
+    a->clearElements();
+
     //Split per lines
     QStringList stringList = patternStr.split("\n", QString::SkipEmptyParts);
     int nLines = stringList.count();
@@ -23,13 +25,15 @@ void PatternParser::parse(QString patternStr, Amigurumi *a)
 
 void PatternParser::parseLine(QString patternLineStr, Amigurumi *a)
 {
-    QRegExp nStitchesRegExp("\[[\d]+\]");
+    //QRegExp nStitchesRegExp("\[[\d]+\]");
+    QRegExp nStitchesRegExp("[");
     QRegExp nStitchesEndRegExp("\]");
-    QRegExp roundStartRegExp("^[Rnd|Round][\d]+ \:");
+    //QRegExp roundStartRegExp("^(Rnd|Round)\s[\d]+\s:");
+    QRegExp roundStartRegExp("^(Rnd|Round)");
 
-    if(currentLine.startsWith("-")){
+    if(patternLineStr.startsWith("-")){
         //new element
-        QString elementName = currentLine.mid(1);
+        QString elementName = patternLineStr.mid(1);
         if(!elementName.isEmpty()){
             std::cout << "New element : " << elementName.toStdString() << std::endl;
             a->addElements(new Element(elementName));
@@ -37,21 +41,25 @@ void PatternParser::parseLine(QString patternLineStr, Amigurumi *a)
         }
 
 
-    }else if(currentLine.startsWith("Round:", Qt::CaseInsensitive) ||
-             currentLine.startsWith("Rnd:", Qt::CaseInsensitive)){
+    }else if(patternLineStr.indexOf(roundStartRegExp)>=0){
         //new round
+        QString roundLine = patternLineStr.left(10); //10 firsts character
+        std::cout << roundLine.toStdString() << std::endl;
         if(this->currentElement>=0){
             Round r;
             //extract max stitches
-            int indexMaxStitches = currentLine.indexOf(nStitchesRegExp);
-            int indexMaxStitchesEnd = currentLine.indexOf(nStitchesEndRegExp);
+            int indexMaxStitches = patternLineStr.indexOf(nStitchesRegExp);
+            int indexMaxStitchesEnd = patternLineStr.indexOf(nStitchesEndRegExp);
             int nbStitchesStringSize = indexMaxStitchesEnd - indexMaxStitches;
 
+            std::cout << "\t indexMaxStitches : "<< indexMaxStitches << ", indexMaxStitchesEnd : " << indexMaxStitchesEnd << ", nbStitchesStringSize : " << nbStitchesStringSize << std::endl;
             if(indexMaxStitches!=-1 && indexMaxStitchesEnd!=-1){
-                QString nbStitchesString = currentLine.mid(indexMaxStitches, nbStitchesStringSize);
+                QString nbStitchesString = patternLineStr.mid(indexMaxStitches, nbStitchesStringSize);
                 std::cout << "nbStitches : " << nbStitchesString.toStdString() << std::endl;
             }
 
+        }else{
+            std::cerr << "Error : No elements defined before" << std::endl;
         }
     }
 }
