@@ -26,13 +26,19 @@ void PatternParser::parse(QString patternStr, Amigurumi *a)
 void PatternParser::parseLine(QString patternLineStr, Amigurumi *a)
 {
     //QRegExp nStitchesRegExp("\[[\d]+\]");
-    QRegExp nStitchesRegExp("[");
-    QRegExp nStitchesEndRegExp("\]");
+    QRegExp nStitchesRegExp("[\[]");
+    QRegExp nStitchesEndRegExp("[\]]");
     //QRegExp roundStartRegExp("^(Rnd|Round)\s[\d]+\s:");
-    QRegExp roundStartRegExp("^(Rnd|Round)");
+    QRegExp roundStartRegExp("^(Rnd|Round)[\s]*\d(-\d)?[\s]*:");
+
+    std::cout << "nStitchesRegExp : " << nStitchesRegExp.isValid() << std::endl;
+    std::cout << "nStitchesEndRegExp : " << nStitchesEndRegExp.isValid() << std::endl;
+    std::cout << "roundStartRegExp : " << roundStartRegExp.isValid() << std::endl;
+
+
 
     if(patternLineStr.startsWith("-")){
-        //new element
+        //NEW ELEMENT
         QString elementName = patternLineStr.mid(1);
         if(!elementName.isEmpty()){
             std::cout << "New element : " << elementName.toStdString() << std::endl;
@@ -40,11 +46,10 @@ void PatternParser::parseLine(QString patternLineStr, Amigurumi *a)
             this->currentElement++;
         }
 
-
     }else if(patternLineStr.indexOf(roundStartRegExp)>=0){
-        //new round
-        QString roundLine = patternLineStr.left(10); //10 firsts character
-        std::cout << roundLine.toStdString() << std::endl;
+        //NEW ROUND
+        //QString roundLine = patternLineStr.left(10); //10 firsts character
+        std::cout << patternLineStr.toStdString() << std::endl;
         if(this->currentElement>=0){
             Round r;
             //extract max stitches
