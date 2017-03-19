@@ -13,4 +13,5 @@ void testAddDeleteComponents();
 void testAddRemoveComponents();
 
 void testParser1();
+void testParserRound();
 #endif // TESTSAMIGURUMI_H

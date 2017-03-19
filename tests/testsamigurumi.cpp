@@ -206,3 +206,18 @@ void testParser1()
 
     a.display();
 }
+
+void testParserRound()
+{
+    QString round1Simple("6 sc into the magic ring");
+    QString round2Simple("1 inc in each st (12)");
+    QString roundRepeat("[3 sc, 1 inc] x3 (15)");
+
+    QRegExp leftBracket("\\[");
+    QRegExp instruction("x[\\s]*[\\d]");
+    QString resLeftBracket = QString("r1S : %1, r2S : %2, rR : %3").arg(round1Simple.indexOf(leftBracket)).arg(round2Simple.indexOf(leftBracket)).arg(roundRepeat.indexOf(leftBracket));
+    std::cout << resLeftBracket.toStdString() << std::endl;
+
+
+
+}

@@ -26,8 +26,6 @@ void PatternParser::parse(QString patternStr, Amigurumi *a)
 void PatternParser::parseLine(QString patternLineStr, Amigurumi *a)
 {
     //QRegExp nStitchesRegExp("\[[\d]+\]");
-    QRegExp nStitchesRegExp("[\[]");
-    QRegExp nStitchesEndRegExp("[\]]");
     QRegExp roundStartRegExp("^(Rnd|Round)");
     //QRegExp roundStartRegExp("^(Rnd|Round)[\s]*\d(-\d)?[\s]*:");
 
@@ -48,10 +46,9 @@ void PatternParser::parseLine(QString patternLineStr, Amigurumi *a)
 
     }else if(patternLineStr.indexOf(roundStartRegExp)>=0){
         //NEW ROUND
-        //QString roundLine = patternLineStr.left(10); //10 firsts character
         //std::cout << patternLineStr.toStdString() << std::endl;
         if(this->currentElement>=0){
-            Round r;
+
             //extract round numbers parts
             int indexColon = patternLineStr.indexOf(":");
             QString roundNumberPartsString = patternLineStr.left(indexColon);
@@ -87,6 +84,56 @@ void PatternParser::parseLine(QString patternLineStr, Amigurumi *a)
 
 
 
+
+
+
+
+            //Instructions parts
+            QString stitchesPartStr = patternLineStr.mid(indexColon+1);
+            std::cout << stitchesPartStr.toStdString() << std::endl;
+            int indexLeftBracket = stitchesPartStr.indexOf(QRegExp("\\["));
+            std::cout << "index left bracket : " << indexLeftBracket << std::endl;
+            if(indexLeftBracket!=-1){ //multiplier and right bracket must be present
+
+                int indexRightBracket = stitchesPartStr.indexOf(QRegExp("\\]"));
+                 QString instructionsBetweenBrackets = stitchesPartStr.mid(indexLeftBracket+1, indexRightBracket-indexLeftBracket-1);
+                 std::cout << "instructions between brackets : " << instructionsBetweenBrackets.toStdString() << std::endl;
+                QRegExp multiplierRegExp("(x[\\d]+)");
+
+                int nbLoopsInstructions = 1;
+                int multiplierIndex = multiplierRegExp.indexIn(stitchesPartStr);
+                if(multiplierIndex!=-1){
+                    QString multiplierSubString = multiplierRegExp.cap(1);
+
+                    bool nbLoopsInstructionsBool = false;
+                    nbLoopsInstructions = multiplierSubString.mid(1).toInt(&nbLoopsInstructionsBool);
+                    if (!nbLoopsInstructionsBool){
+                        std::cerr << "Imossible to convert multiplier into integer" << std::endl;
+                    }
+                    std::cout << "multiplier : " << nbLoopsInstructions << std::endl;
+                }
+
+
+                for(int roundRepeatNumber = 0; roundRepeatNumber <nbRounds; roundRepeatNumber++){
+                    Round r;
+
+                    for(int loopStitchesNum = 0; loopStitchesNum < nbLoopsInstructions; loopStitchesNum++){
+
+
+                    }
+                }
+
+
+
+            }else{
+
+            }
+
+
+
+            /*
+            QRegExp nStitchesRegExp("[\[]");
+            QRegExp nStitchesEndRegExp("[\]]");
             int indexMaxStitches = patternLineStr.indexOf(nStitchesRegExp);
             int indexMaxStitchesEnd = patternLineStr.indexOf(nStitchesEndRegExp);
             int nbStitchesStringSize = indexMaxStitchesEnd - indexMaxStitches;
@@ -96,6 +143,10 @@ void PatternParser::parseLine(QString patternLineStr, Amigurumi *a)
                 QString nbStitchesString = patternLineStr.mid(indexMaxStitches, nbStitchesStringSize);
                 //std::cout << "nbStitches : " << nbStitchesString.toStdString() << std::endl;
             }
+            */
+
+
+
 
         }else{
             std::cerr << "Error : No elements defined before" << std::endl;

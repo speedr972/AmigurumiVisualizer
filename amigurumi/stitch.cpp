@@ -26,6 +26,9 @@ QString Stitch::toString()
     case StitchType::CHAIN:
         return QString("ch");
         break;
+    case StitchType::HALF_DOUBLE_CROCHET:
+        return QString("hdc");
+        break;
     default:
         break;
     }
