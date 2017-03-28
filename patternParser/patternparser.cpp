@@ -97,6 +97,7 @@ void PatternParser::parseLine(QString patternLineStr, Amigurumi *a)
 
                 int indexRightBracket = stitchesPartStr.indexOf(QRegExp("\\]"));
                  QString instructionsBetweenBrackets = stitchesPartStr.mid(indexLeftBracket+1, indexRightBracket-indexLeftBracket-1);
+
                  std::cout << "instructions between brackets : " << instructionsBetweenBrackets.toStdString() << std::endl;
                 QRegExp multiplierRegExp("(x[\\d]+)");
 
@@ -113,14 +114,33 @@ void PatternParser::parseLine(QString patternLineStr, Amigurumi *a)
                     std::cout << "multiplier : " << nbLoopsInstructions << std::endl;
                 }
 
-
+                QStringList instructionsSplited = instructionsBetweenBrackets.splitsplit(",", QString::SkipEmptyParts);
                 for(int roundRepeatNumber = 0; roundRepeatNumber <nbRounds; roundRepeatNumber++){
                     Round r;
 
                     for(int loopStitchesNum = 0; loopStitchesNum < nbLoopsInstructions; loopStitchesNum++){
+                        for(int instructionNumber = 0; instructionNumber < instructionsSplited.size(); instructionNumber++){
+                            QString currentInstruction = instructionsSplited.at(instructionNumber);
+                            QRegExp stitchNumberRegexp("[0-9]+");
+                            QRegExp stitchNameRegexp("(sc|inc|dec|ch|ss|hdc)");
+                            int stitchNumberIndex = stitchNumberRegexp.indexIn(currentInstruction);
+                            int stitchNameIndex = stitchNameRegexp.indexIn(currentInstruction);
 
+                            int nbStitches = stitchNumberRegexp.cap(1).toInt();
+                            QString stitchName = stitchNameRegexp.cap(1);
+
+                            switch (stitchName) {
+                            case value:
+
+                                break;
+                            default:
+                                break;
+                            }
+
+                        }
 
                     }
+
                 }
 
 
