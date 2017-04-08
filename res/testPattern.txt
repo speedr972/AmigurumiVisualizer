@@ -2,10 +2,10 @@
 
 Use green yarn
 
-Rnd 1: 6 sc into the magic ring
-Rnd 2: 6 sc (6)
-Rnd 3: 1 inc in each st (12)
-Rnd 4: 12 sc (12)
+Rnd 1: [6 sc] into the magic ring
+Rnd 2: [6 sc] (6)
+Rnd 3: [1 inc in each st] (12)
+Rnd 4: [12 sc] (12)
 Rnd 5: [3 sc, 1 inc] x3 (15)
 Rnd 6: [4 sc, 1 inc] x3 (18)
 Rnd 7: [5 sc, 1 inc] x3 (21)
@@ -19,7 +19,7 @@ Rnd 13: [7 sc, 1 inc] x3 (27)
 Rnd 14: [8 sc, 1 inc] x3 (30)
 Rnd 15: [9 sc, 1 inc] x3 (33)
 Rnd 16: [10 sc, 1 inc] x3 (36)
-Rnd 17: 36 sc (36)
+Rnd 17: [36 sc] (36)
 Rnd 18: BLO [4 sc, 1 dec] x6 (30)
 Rnd 19: [3 sc, 1 dec] x6 (24)
 Rnd 20: [2 sc, 1 dec] x6 (18)
@@ -29,7 +29,7 @@ Rnd 22: [3 sc, 1 inc] x6 (30)
 Rnd 23: [4 sc, 1 inc] x6 (36)
 Rnd 24: [5 sc, 1 inc] x6 (42)
 Rnd 25: [6 sc, 1 inc] x6 (48)
-Rnd 26-28: 48 sc (48)
+Rnd 26-28: [48 sc] (48)
 Rnd 29: BLO [6 sc, 1 dec] x6 (42)
 Rnd 30: [5 sc, 1 dec] x6 (36)
 Rnd 31: [4 sc, 1 dec] x6 (30)
@@ -41,12 +41,6 @@ Finish off.
 
 -Star
 Use yellow yarn
-Rnd 1: 5 sc into the magic ring
-Rnd 2: [1 sc, chain 3, 1 sc in first chain after hook, 1 hdc] x 5
+Rnd 1: [5 sc] into the magic ring
+Rnd 2: [1 sc, chain 3, 1 sc in first chain after hook, 1 hdc] x5
 Finish off and attach the star on top of the tree
-
--Scarf
-Use red yarn
-Rnd 1: crochet a chain of 51 st
-Rnd 2: 50 hdc
-Finish off.

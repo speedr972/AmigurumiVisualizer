@@ -25,14 +25,8 @@ void PatternParser::parse(QString patternStr, Amigurumi *a)
 
 void PatternParser::parseLine(QString patternLineStr, Amigurumi *a)
 {
-    //QRegExp nStitchesRegExp("\[[\d]+\]");
+
     QRegExp roundStartRegExp("^(Rnd|Round)");
-    //QRegExp roundStartRegExp("^(Rnd|Round)[\s]*\d(-\d)?[\s]*:");
-
-    //std::cout << "nStitchesRegExp : " << nStitchesRegExp.isValid() << std::endl;
-    //std::cout << "nStitchesEndRegExp : " << nStitchesEndRegExp.isValid() << std::endl;
-    //std::cout << "roundStartRegExp : " << roundStartRegExp.isValid() << std::endl;
-
 
 
     if(patternLineStr.startsWith("-")){
@@ -45,8 +39,8 @@ void PatternParser::parseLine(QString patternLineStr, Amigurumi *a)
         }
 
     }else if(patternLineStr.indexOf(roundStartRegExp)>=0){
+        std::cout << "-----------------------------------------------" << std::endl;
         //NEW ROUND
-        //std::cout << patternLineStr.toStdString() << std::endl;
         if(this->currentElement>=0){
 
             //extract round numbers parts
@@ -56,10 +50,10 @@ void PatternParser::parseLine(QString patternLineStr, Amigurumi *a)
             //split round numbers
             QStringList roundNumberPartsStringList = roundNumberPartsString.split(" ", QString::SkipEmptyParts);
             QString roundIntervalString = roundNumberPartsStringList.at(1);
-            int firstNumberIndex = roundNumberPartsString.indexOf(QRegExp("[0-9]"));
+            int firstNumberIndex = roundNumberPartsString.indexOf(QRegExp("[0-9]+"));
             int hyphenIndex = roundNumberPartsString.indexOf(QRegExp("-"));
 
-            std::cout << roundIntervalString.toStdString() << std::endl;
+            std::cout << "roundIntervalString : " << roundIntervalString.toStdString() << std::endl;
 
             //QStringList splitRoundNumberPartsString = patternLineStr.mid(indexColon+1);
             int nbRounds = 1;
@@ -90,7 +84,7 @@ void PatternParser::parseLine(QString patternLineStr, Amigurumi *a)
 
             //Instructions parts
             QString stitchesPartStr = patternLineStr.mid(indexColon+1);
-            std::cout << stitchesPartStr.toStdString() << std::endl;
+            std::cout << "stitchesPartStr : " <<stitchesPartStr.toStdString() << std::endl;
             int indexLeftBracket = stitchesPartStr.indexOf(QRegExp("\\["));
             std::cout << "index left bracket : " << indexLeftBracket << std::endl;
             if(indexLeftBracket!=-1){ //multiplier and right bracket must be present
@@ -104,49 +98,59 @@ void PatternParser::parseLine(QString patternLineStr, Amigurumi *a)
                 int nbLoopsInstructions = 1;
                 int multiplierIndex = multiplierRegExp.indexIn(stitchesPartStr);
                 if(multiplierIndex!=-1){
-                    QString multiplierSubString = multiplierRegExp.cap(1);
+                    QString multiplierSubString = multiplierRegExp.cap(0);
 
                     bool nbLoopsInstructionsBool = false;
                     nbLoopsInstructions = multiplierSubString.mid(1).toInt(&nbLoopsInstructionsBool);
                     if (!nbLoopsInstructionsBool){
-                        std::cerr << "Imossible to convert multiplier into integer" << std::endl;
+                        std::cerr << "Impossible to convert multiplier into integer" << std::endl;
                     }
                     std::cout << "multiplier : " << nbLoopsInstructions << std::endl;
                 }
 
-                QStringList instructionsSplited = instructionsBetweenBrackets.splitsplit(",", QString::SkipEmptyParts);
+                QStringList instructionsSplited = instructionsBetweenBrackets.split(",", QString::SkipEmptyParts);
                 for(int roundRepeatNumber = 0; roundRepeatNumber <nbRounds; roundRepeatNumber++){
                     Round r;
 
                     for(int loopStitchesNum = 0; loopStitchesNum < nbLoopsInstructions; loopStitchesNum++){
                         for(int instructionNumber = 0; instructionNumber < instructionsSplited.size(); instructionNumber++){
                             QString currentInstruction = instructionsSplited.at(instructionNumber);
-                            QRegExp stitchNumberRegexp("[0-9]+");
+                            //std::cout << "current Instruction : " << currentInstruction.toStdString() << std::endl;
+                            QRegExp stitchNumberRegexp("[\\d]+");
                             QRegExp stitchNameRegexp("(sc|inc|dec|ch|ss|hdc)");
                             int stitchNumberIndex = stitchNumberRegexp.indexIn(currentInstruction);
                             int stitchNameIndex = stitchNameRegexp.indexIn(currentInstruction);
 
-                            int nbStitches = stitchNumberRegexp.cap(1).toInt();
-                            QString stitchName = stitchNameRegexp.cap(1);
-
-                            switch (stitchName) {
-                            case value:
-
-                                break;
-                            default:
-                                break;
+                            QString nbStitchesStr = stitchNumberRegexp.cap(0);
+                            int nbStitches = nbStitchesStr.toInt();
+                            QString stitchName = stitchNameRegexp.cap(0);
+                            std::cout << "nbStitches stitchName : " << nbStitches << " " << stitchName.toStdString() << std::endl;
+                            if(QString::compare(stitchName, QString("sc"))){
+                                r.addStitches(Stitch(StitchType::SINGLE_CROCHET), nbStitches);
+                            }else if(QString::compare(stitchName, QString("inc"))){
+                                r.addStitches(Stitch(StitchType::INCREASE), nbStitches);
+                            }else if(QString::compare(stitchName, QString("dec"))){
+                                r.addStitches(Stitch(StitchType::DECREASE), nbStitches);
+                            }else if(QString::compare(stitchName, QString("ch"))){
+                                r.addStitches(Stitch(StitchType::CHAIN), nbStitches);
+                            }else if(QString::compare(stitchName, QString("ss"))){
+                                r.addStitches(Stitch(StitchType::SLIP_STITCH), nbStitches);
+                            }else if(QString::compare(stitchName, QString("hdc"))){
+                                r.addStitches(Stitch(StitchType::HALF_DOUBLE_CROCHET), nbStitches);
+                            }else{
+                                //necessary ?
                             }
 
                         }
 
                     }
+                    a->elements[this->currentElement]->addRound(r);
 
                 }
 
 
 
             }else{
-
             }
 
 
