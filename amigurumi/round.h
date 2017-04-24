@@ -9,7 +9,7 @@ class Round
 {
 public:
     Round();
-    void addStitch(Stitch stitch);
+    int addStitch(Stitch stitch);
     void addStitches(Stitch stitch, int number);
     void clear();
     QString toString();

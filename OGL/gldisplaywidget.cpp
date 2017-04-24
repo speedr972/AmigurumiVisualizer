@@ -213,6 +213,7 @@ void GLDisplayWidget::paintGL()
     m_modelMatrix.setToIdentity();
 
 
+
     m_program->bind();
 
     m_program->setUniformValue(m_locationModelMatrix, m_modelMatrix);

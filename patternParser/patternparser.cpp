@@ -125,17 +125,17 @@ void PatternParser::parseLine(QString patternLineStr, Amigurumi *a)
                             int nbStitches = nbStitchesStr.toInt();
                             QString stitchName = stitchNameRegexp.cap(0);
                             std::cout << "nbStitches stitchName : " << nbStitches << " " << stitchName.toStdString() << std::endl;
-                            if(QString::compare(stitchName, QString("sc"))){
+                            if(QString::compare(stitchName, QString("sc"))==0){
                                 r.addStitches(Stitch(StitchType::SINGLE_CROCHET), nbStitches);
-                            }else if(QString::compare(stitchName, QString("inc"))){
+                            }else if(QString::compare(stitchName, QString("inc"))==0){
                                 r.addStitches(Stitch(StitchType::INCREASE), nbStitches);
-                            }else if(QString::compare(stitchName, QString("dec"))){
+                            }else if(QString::compare(stitchName, QString("dec"))==0){
                                 r.addStitches(Stitch(StitchType::DECREASE), nbStitches);
-                            }else if(QString::compare(stitchName, QString("ch"))){
+                            }else if(QString::compare(stitchName, QString("ch"))==0){
                                 r.addStitches(Stitch(StitchType::CHAIN), nbStitches);
-                            }else if(QString::compare(stitchName, QString("ss"))){
+                            }else if(QString::compare(stitchName, QString("ss"))==0){
                                 r.addStitches(Stitch(StitchType::SLIP_STITCH), nbStitches);
-                            }else if(QString::compare(stitchName, QString("hdc"))){
+                            }else if(QString::compare(stitchName, QString("hdc"))==0){
                                 r.addStitches(Stitch(StitchType::HALF_DOUBLE_CROCHET), nbStitches);
                             }else{
                                 //necessary ?

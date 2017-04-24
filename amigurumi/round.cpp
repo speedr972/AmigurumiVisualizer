@@ -7,7 +7,7 @@ Round::Round()
     nbStitches = 0;
 }
 
-void Round::addStitch(Stitch stitch)
+int Round::addStitch(Stitch stitch)
 {
     if(stitchesSet.empty()){
         //if no stitches, we add the stitch and count 1 for this stitch
@@ -24,14 +24,21 @@ void Round::addStitch(Stitch stitch)
         }
     }
 
+    int nbAddedStitches = 1;
+    if(stitch.getType()==StitchType::INCREASE){
+        nbAddedStitches = 2;
+    }
+    return nbAddedStitches;
 }
 
 void Round::addStitches(Stitch stitch, int number)
 {
+    int nbAddedStitches = 0;
     for(int i = 0; i<number; i++){
-        addStitch(stitch);
+        nbAddedStitches += addStitch(stitch);
     }
-    nbStitches += number;
+    //nbStitches += number;
+    this->nbStitches += nbAddedStitches;
 }
 
 void Round::clear()

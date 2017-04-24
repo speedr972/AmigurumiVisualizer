@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui opengl
 QT += widgets
 
 CONFIG += c++11
@@ -24,7 +24,9 @@ SOURCES += main.cpp\
     OGL/modelelement.cpp \
     GUI/mainwindow.cpp \
     patternParser/patternparser.cpp \
-    tests/testsamigurumi.cpp
+    tests/testsamigurumi.cpp \
+    OGL/glmainframe.cpp \
+    OGL/renderthread.cpp
 
 HEADERS  += amigurumi/stitch.h \
     amigurumi/round.h \
@@ -35,7 +37,9 @@ HEADERS  += amigurumi/stitch.h \
     OGL/modelelement.h \
     GUI/mainwindow.h \
     patternParser/patternparser.h \
-    tests/testsamigurumi.h
+    tests/testsamigurumi.h \
+    OGL/glmainframe.h \
+    OGL/renderthread.h
 
 # FORMS    += mainwindow.ui
 

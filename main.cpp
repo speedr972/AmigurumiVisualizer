@@ -14,26 +14,33 @@
 
 int main(int argc, char *argv[])
 {
-    //QApplication app(argc, argv);
-
     /*
+    QApplication app(argc, argv);
     GLDisplayWidget widget;
     widget.show();
+    return app.exec();
     */
 
 
     //testDefineComponentsPointers();
-    //MainWindow w;
-    //w.show();
+
+    QApplication app(argc, argv);
+    app.setAttribute(Qt::AA_DontCreateNativeWidgetSiblings);
+    MainWindow w;
+    w.show();
+    return app.exec();
     //testAddDeleteComponents();
 
 
     //return app.exec();
 
-    testParser1();
 
+
+    /*
     //testParserRound();
+    testParser1();
     return 0;
+    */
 
 }
 

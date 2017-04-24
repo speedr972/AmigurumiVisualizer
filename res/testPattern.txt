@@ -4,7 +4,7 @@ Use green yarn
 
 Rnd 1: [6 sc] into the magic ring
 Rnd 2: [6 sc] (6)
-Rnd 3: [1 inc in each st] (12)
+Rnd 3: [6 inc] (12)
 Rnd 4: [12 sc] (12)
 Rnd 5: [3 sc, 1 inc] x3 (15)
 Rnd 6: [4 sc, 1 inc] x3 (18)
